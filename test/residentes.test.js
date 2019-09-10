@@ -12,14 +12,41 @@ describe('Residente', () =>{
 
     describe('Nuevo', () => {
         it('Debe de estar asociado a una casa',() => {
+            let newResidente = new ResidentModel({
+                firstName : 'Francisco',
+                lastName : 'Herte',
+                birthday : Date.now(),
+                cellphone: 61423134,
+                houseNumber: 0
+            });
+
+            assert.throws(newResidente.saveResident());
 
         });
 
         it('Debe de tener un nombre completo', () => {
+            let newResidente = new ResidentModel({
+                firstName : "",
+                lastName : "",
+                birthday : Date.now(),
+                cellphone: 61423134,
+                houseNumber: 34
+            });
+
+            assert.throws(newResidente.saveResident());
 
         });
 
         it('Debe de tener un número de telefono asociado',() => {
+            let newResidente = new ResidentModel({
+                firstName : 'Francisco',
+                lastName : 'Herte',
+                birthday : Date.now(),
+                cellphone: 0,
+                houseNumber: 34
+            });
+
+            assert.throws(newResidente.saveResident());
 
         });
 
@@ -40,9 +67,9 @@ describe('Residente', () =>{
             });
 
             assert.throws(newResidente.deleteResident());
-            newResidente.debts = [];
-            console.log(newResidente.debts);
-            assert(newResidente.deleteResident());
+            // newResidente.debts = [];
+            // console.log(newResidente.debts);
+            // assert(newResidente.deleteResident());
         });
 
         it('No se puede eliminar si tiene casas', () => {
@@ -54,8 +81,8 @@ describe('Residente', () =>{
             });
 
             assert.throws(newResidente.deleteResident());
-            newResidente.houseNumber = 0;
-            assert(newResidente.deleteResident());
+            // newResidente.houseNumber = 0;
+            // assert(newResidente.deleteResident());
         });
             
 
@@ -71,16 +98,34 @@ describe('Residente', () =>{
             });
 
             assert.throws(newResidente.deleteResident());
-            newResidente.cars = [];
-            assert(newResidente.deleteResident());
+            // newResidente.cars = [];
+            // assert(newResidente.deleteResident());
         });
 
     });
     
     describe('Modificar', () => {
-        it('No se debe modificar si no se tiene los permisos necesarios');
-        it('No debe de modificar si los datos no son cadenas');
-        it('No debe de modificar si los datos no son números');
+        it('No se puede modificar el numero de casa si existen deudas', () => {
+            let newResidente = new ResidentModel({
+                firstName : 'Francisco',
+                lastName : 'Herte',
+                birthday : Date.now(),
+                houseNumber : 04,
+                debts : [
+                    "1000"
+                ]
+
+                
+            });
+        });
+
+        it('No debe de modificar si los datos no son cadenas', () => {
+
+        });
+
+        it('No debe de modificar si los datos no son números', () => {
+
+        });
     })
 
 });
