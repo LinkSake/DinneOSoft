@@ -41,7 +41,7 @@ describe('Residente', () =>{
 
             assert.throws(newResidente.deleteResident());
             newResidente.debts = [];
-            console.log();
+            console.log(newResidente.debts);
             assert(newResidente.deleteResident());
         });
 
