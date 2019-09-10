@@ -33,7 +33,7 @@ describe('Actividad', () =>{
 
             });
 
-            it.only('Si el valor es diferente a un número no debe de dejar modificar', () => {
+            it('Si el valor es diferente a un número no debe de dejar modificar', () => {
                 let newActivity = new ActivityModel({
                     date: Date.now(),
                     state: 'INICIADO',
@@ -48,7 +48,7 @@ describe('Actividad', () =>{
 
             });
 
-            it.only('Si el valor no es entero no se debe de dejar modificar', () => {
+            it('Si el valor no es entero no se debe de dejar modificar', () => {
                 let newActivity = new ActivityModel({
                     date: Date.now(),
                     state: 'INICIADO',
@@ -64,7 +64,7 @@ describe('Actividad', () =>{
 
             });
 
-            it.only('El valor número no debe de ser igual o menor a 0', () => {
+            it('El valor número no debe de ser igual o menor a 0', () => {
                 let newActivity = new ActivityModel({
                     date: Date.now(),
                     state: 'INICIADO',
@@ -74,7 +74,7 @@ describe('Actividad', () =>{
                 assert.throws(newActivity.modificarCapacidad.bind(null, 0));
             });
 
-            it('El valor número es correcto', () => {
+            it.skip('El valor número es correcto', () => {
                 let newActivity = new ActivityModel({
                     date: Date.now(),
                     state: 'INICIADO',
