@@ -20,11 +20,30 @@ class ResidenteClass {
     }
 
 
-    setHouseNumber(oldHouse, newHouse){
-        if(this.debts = [] ){
-
+    setHouseNumber(newHouse){
+        if(this.debts = [] && typeof(newHouse) === 'number'){
+            console.log('Update: Okay!')
+            this.houseNumber = newHouse;
         } else {
-            throw new Error()
+            throw new Error('No se puede cambiar de residencia si se tiene deudas pendientes');
+        }
+    }
+
+    setFirstName(newFirstName){
+        if(typeof(newFirstName) === 'String'){
+            console.log('Update: Okay!')
+            this.fistName = newFirstName;
+        } else {
+            throw new Error('Ingresa un nombre válido');
+        }
+    }
+
+    setLastName(newLastName){
+        if(typeof(newLastName) === 'String'){
+            console.log('Update: Okay!')
+            this.fistName = newLastName;
+        } else {
+            throw new Error('Ingresa un nombre válido');
         }
     }
 

@@ -114,17 +114,43 @@ describe('Residente', () =>{
                 debts : [
                     "1000"
                 ]
-
-                
             });
+
+            assert.throws(newResidente.setHouseNumber(02))
+            newResidente.debts = []
+            assert(newResidente.setHouseNumber(02));
         });
 
-        it('No debe de modificar si los datos no son cadenas', () => {
+        it('No debe de modificar si el nombre no es cadena', () => {
+            let newResidente = new ResidentModel({
+                firstName : 'Francisco',
+                lastName : 'Herte',
+                birthday : Date.now(),
+                houseNumber : 04
+            });
+
+            assert.throws(newResidente.setFirstName.bind(null, 1));
+            assert.throws(newResidente.setFirstName.bind(null, null));
+            assert.throws(newResidente.setFirstName.bind(null, undefined));
+
+            assert.throws(newResidente.setLastName.bind(null, 1));
+            assert.throws(newResidente.setLastName.bind(null, undefined));
+            assert.throws(newResidente.setLastName.bind(null, [1]));
 
         });
 
-        it('No debe de modificar si los datos no son números', () => {
+        it('No debe de modificar el número de casa si no es números', () => {
+            let newResidente = new ResidentModel({
+                firstName : 'Francisco',
+                lastName : 'Herte',
+                birthday : Date.now(),
+                houseNumber : 04,
+                debts: []
+            });
 
+            assert.throws(newResidente.setHouseNumber.bind(null, " "));
+            assert.throws(newResidente.setHouseNumber.bind(null, null));
+            assert.throws(newResidente.setHouseNumber.bind(null, undefined));
         });
     })
 
