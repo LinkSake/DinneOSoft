@@ -1,7 +1,7 @@
 const describe = require('mocha').describe;
 const it = require('mocha').it;
 const mongoose = require('mongoose');
-const assert = require('chai').assert;
+const { expect } = require('chai');
 
 const ResidentModel = require('../models/residentes.model').ResidentModel;
 
@@ -10,132 +10,119 @@ mongoose.connect('mongodb://127.0.0.1:27014/frac');
 
 describe('Residente', () =>{
 
-    describe('Nuevo', () => {
-        it('Debe de estar asociado a una casa',() => {
+    describe('Un residente nuevo debe de', () => {
+        it('Estar asociado a una casa',() => {
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                birthday : Date.now(),
                 cellphone: 61423134,
                 houseNumber: 0
             });
 
-            assert.throws(newResidente.saveResident());
+
 
         });
 
-        it('Debe de tener un nombre completo', () => {
+        it('Tener un nombre completo', () => {
             let newResidente = new ResidentModel({
-                firstName : "",
-                lastName : "",
-                birthday : Date.now(),
                 cellphone: 61423134,
                 houseNumber: 34
             });
 
-            assert.throws(newResidente.saveResident());
+
 
         });
 
-        it('Debe de tener un número de telefono asociado',() => {
+        it('Conctar con un número de telefono',() => {
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                birthday : Date.now(),
-                cellphone: 0,
                 houseNumber: 34
             });
 
-            assert.throws(newResidente.saveResident());
+        
+
 
         });
 
     });
 
-    describe('Eliminar', () => {
-        it('No se puede eliminar si tiene deudas', () => {
+    describe('Si se quiere eliminar un residente ', () => {
+        it('No puede tiener deudas', () => {
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                birthday : Date.now(),
                 houseNumber : 04,
                 debts : [
-                    "300",
-                    "400",
-                    "500"
+                    {enero:'300'},
+                    {febrero:'400'},
+                    {marzo: '500'}
                 ]
             });
 
-            assert.throws(newResidente.deleteResident());
-            // newResidente.debts = [];
-            // console.log(newResidente.debts);
-            // assert(newResidente.deleteResident());
+            expect(newResidente.deleteResident.bind(null, null)).to.throw();
+            newResidente.deleteDebt({enero:'300'});
+            newResidente.deleteDebt({febrero:'400'});
+            newResidente.deleteDebt({marzo:'500'});
+            newResidente.deleteResident();
+            expect(newResidente.is_deleted).to.be.true;
+
         });
 
-        it('No se puede eliminar si tiene casas', () => {
-            let newResidente = new ResidentModel({
-                firstName : 'Francisco',
-                lastName : 'Herte',
-                birthday : Date.now(),
-                houseNumber : 04
-            });
+        it('Si está vacio', () => {
+            let newResidente = new ResidentModel();
 
-            assert.throws(newResidente.deleteResident());
-            // newResidente.houseNumber = 0;
-            // assert(newResidente.deleteResident());
+            expect(newResidente.deleteResident.bind(null, null)).to.throw();
+
         });
             
 
-        it('No se puede eliminar si tiene carros', () => {
+        it('No debe de tener ningún automovil relacionado', () => {
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                birthday : Date.now(),
                 houseNumber : 04,
                 cars : [
                     "Tsuru"
                 ]
             });
 
-            assert.throws(newResidente.deleteResident());
-            // newResidente.cars = [];
-            // assert(newResidente.deleteResident());
+            expect(newResidente.deleteResident.bind(null,null)).to.throw();
+            newResidente.deleteCar("Tsuru");
+            newResidente.deleteResident();
+            expect(newResidente.is_deleted).to.be.true;
+
         });
 
     });
     
-    describe('Modificar', () => {
+    describe('Al editar un residente', () => {
         it('No se puede modificar el numero de casa si existen deudas', () => {
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                birthday : Date.now(),
                 houseNumber : 04,
                 debts : [
-                    "1000"
+                    {enero:'300'},
+                    {febrero:'400'},
+                    {marzo: '500'}
                 ]
             });
 
-            assert.throws(newResidente.setHouseNumber(02))
-            newResidente.debts = []
-            assert(newResidente.setHouseNumber(02));
+            expect(newResidente.setHouseNumber.bind(05)).to.throw();
+
         });
 
-        it('No debe de modificar si el nombre no es cadena', () => {
+        it('No se puede cambiar al al mismo número de casa', () => {
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                birthday : Date.now(),
                 houseNumber : 04
             });
 
-            assert.throws(newResidente.setFirstName.bind(null, 1));
-            assert.throws(newResidente.setFirstName.bind(null, null));
-            assert.throws(newResidente.setFirstName.bind(null, undefined));
-
-            assert.throws(newResidente.setLastName.bind(null, 1));
-            assert.throws(newResidente.setLastName.bind(null, undefined));
-            assert.throws(newResidente.setLastName.bind(null, [1]));
+            expect(newResidente.setHouseNumber.bind(null, 04)).to.throw();
+            newResidente.setHouseNumber(05);
+            expect(newResidente.setHouseNumber.bind(null, 05)).to.throw();
 
         });
 
@@ -143,14 +130,14 @@ describe('Residente', () =>{
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                birthday : Date.now(),
                 houseNumber : 04,
                 debts: []
             });
 
-            assert.throws(newResidente.setHouseNumber.bind(null, " "));
-            assert.throws(newResidente.setHouseNumber.bind(null, null));
-            assert.throws(newResidente.setHouseNumber.bind(null, undefined));
+            expect(newResidente.setHouseNumber.bind(null, "")).to.throw();
+            expect(newResidente.setHouseNumber.bind(null, null)).to.throw();
+            expect(newResidente.setHouseNumber.bind(null, undefined)).to.throw();
+
         });
     })
 

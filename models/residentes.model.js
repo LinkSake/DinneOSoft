@@ -4,12 +4,11 @@ const Schema = mongoose.Schema;
 const residenteSchema = new Schema({
     fistName: {type: String},
     lastName: {type: String}, 
-    birthday: {type: Date},
     cellphone: {type: Number},
     houseNumber: {type: Number},
-    housemates: {type: [String]},
     cars: {type: [String]},
-    debts: {type: [String]},
+    debts: {type: [Object]},
+    is_deleted: {type: Boolean}
 });
 
 /**
@@ -63,6 +62,10 @@ class ResidenteClass {
         } else {
             throw new Error("¡No puedes eliminar un residente con datos vinculados!");
         }
+    }
+
+    getDebts() {
+
     }
 
 }
