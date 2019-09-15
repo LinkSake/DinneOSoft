@@ -1,12 +1,8 @@
 const describe = require('mocha').describe;
 const it = require('mocha').it;
-const mongoose = require('mongoose');
 const { expect } = require('chai');
 
 const ResidentModel = require('../models/residentes.model').ResidentModel;
-
-mongoose.promise = Promise;
-mongoose.connect('mongodb://127.0.0.1:27014/frac');
 
 describe('Residente', () =>{
 
@@ -16,10 +12,11 @@ describe('Residente', () =>{
                 firstName : 'Francisco',
                 lastName : 'Herte',
                 cellphone: 61423134,
-                houseNumber: 0
             });
 
-
+            expect(newResidente.saveResident).to.throw();
+            newResidente.setHouseNumber(34)
+            expect(newResidente.saveResident()).to.be.true;
 
         });
 
@@ -29,7 +26,10 @@ describe('Residente', () =>{
                 houseNumber: 34
             });
 
-
+            expect(newResidente.saveResident.bind(null,null)).to.throw();
+            newResidente.setFirstName('Martín');
+            newResidente.setLastName('Pixel');
+            expect(newResidente.saveResident()).to.be.true;
 
         });
 
@@ -40,8 +40,9 @@ describe('Residente', () =>{
                 houseNumber: 34
             });
 
-        
-
+            expect(newResidente.saveResident.bind(null,null)).to.throw();
+            newResidente.setPhoneNumber(6142233666)
+            expect(newResidente.saveResident()).to.be.true;
 
         });
 
@@ -52,7 +53,7 @@ describe('Residente', () =>{
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                houseNumber : 04,
+                cellphone : 61234235,
                 debts : [
                     {enero:'300'},
                     {febrero:'400'},
@@ -81,7 +82,7 @@ describe('Residente', () =>{
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
-                houseNumber : 04,
+                cellphone: 24534255,
                 cars : [
                     "Tsuru"
                 ]
@@ -109,11 +110,11 @@ describe('Residente', () =>{
                 ]
             });
 
-            expect(newResidente.setHouseNumber.bind(05)).to.throw();
+            expect(newResidente.setHouseNumber.bind(null, 05)).to.throw();
 
         });
 
-        it('No se puede cambiar al al mismo número de casa', () => {
+        it('No se puede cambiar al mismo número de casa', () => {
             let newResidente = new ResidentModel({
                 firstName : 'Francisco',
                 lastName : 'Herte',
