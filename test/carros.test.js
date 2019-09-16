@@ -46,6 +46,7 @@ describe('RegistroAutos',function(){
         describe('Modificar Año',function(){
             it('Número de 4 dígitos');
             it('No puede ser nulo');
+            //Limite de fechas
        });
         describe('Modificar color',function(){
             it('tipo String');
@@ -60,6 +61,7 @@ describe('RegistroAutos',function(){
         describe('Modificar Placa',function(){
            it('Tiene que ser de tipo String');
            it('No puede ser nulo');
+           //Agregar un REGEX para validar placa
            
        });
        
