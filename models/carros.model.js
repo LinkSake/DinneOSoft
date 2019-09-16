@@ -122,7 +122,7 @@ class CarroClass {
 //Load class
 carroSchema.loadClass(CarroClass);
 
-let CartModel = mongoose.model('Car', carroSchema);
+let CarModel = mongoose.model('Car', carroSchema);
 
 module.exports = {
     CarModel

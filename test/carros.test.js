@@ -13,7 +13,7 @@ describe.skip('Autos',function(){
     describe('Registrar Auto',function(){
         it('No debe de tener nulos');
         it('Deberia de guardarse');
-            let newCar = newCarModel({
+            let newCar = new CarModel({
                 model:'Derby',
                 color: 'rojo',
                 licensePlate: 'EML-LS-8565',
@@ -22,7 +22,8 @@ describe.skip('Autos',function(){
             });
         
             describe('Dar de Alta Año',function(){
-                var year = (currentTime.getFullYear() + 3); 
+                let date = new Date();
+                var year = (date.getFullYear() + 3); 
 
                 it('No puede ser mayor del año actual +2');
                 it('No puede ser nulo');
