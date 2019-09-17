@@ -25,14 +25,15 @@ describe('Autos',function(){
     });
 
     describe('Corregir  numero de casa',function(){
-        describe.only('Modificar casa',function(){
+        it('Tiene que existir',function(){
+            
+        });
 
-           it('Tiene que ser un número entero y positivo', function(){
+        it('Tiene que ser un número entero y positivo', function(){
                
-           });
+        });
 
-           
-       });     
+               
     });
 
 
