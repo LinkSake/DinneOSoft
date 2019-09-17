@@ -16,55 +16,60 @@ class CarroClass {
     constructor() {
     }
 
-    modificarNumero(NewHouse){
-
-        if(typeof(NewHouse) === 'number' && NewHouse > 0 && NewHouse % 1 !== 0) {
-            this.houseNumber = NewHouse;
-            return this.Number
-        } else {
-            throw new Error('Error en los valores ingresados');
-            
-        }
-
+    getYear(){
+        return this.year;
     }
 
-    getLicensePlate(){
-        if(typeof this.licensePlate === 'string' ){
-            return this.licensePlate;
-        } else {
-            throw new Error('No se puede guardar algo diferente a una cadena')
-        }
-    }
-    getCarHouse(){
-        if(typeof this.houseNumber === 'number' ){
-            return this.houseNumber;
-        } else {
-            throw new Error('No se puede guardar algo diferente a un numero')
-        }
-        
-    }
-    
+    setYear(newYear){
 
-    deleteCar(){
-        if(this.licensePlate !== undefined){
-            return true;
+        let date = new Date();
+        let maxYear = (date.getFullYear() + 3); 
+
+        if (typeof newYear === 'number' && newYear !== null && newYear < maxYear) {
+            this.year = newYear;
         } else {
-            throw new Error('No se puede eliminar un carro que no existe')
+            throw new Error('Ingresa un año valido')
         }
     }
 
-    debug(){
-        console.log("Nombre = "+this.firstName);
-        console.log("Apellido = "+this.lastName);
-        console.log("Celular = "+this.cellphone);
-        console.log("Casa = "+this.houseNumber);
-        console.log("Deudas = "+this.debts);
-        console.log("Carros = "+this.cars);
-        console.log("¿Eliminado? = "+this.is_deleted);
-        
+    getColor(){
+        return this.color;
     }
 
-    
+    setColor(newColor){
+        if (typeof newColor === 'string' && newColor !== null) {
+            this.color = newColor;
+        } else {
+            throw new Error('Ingrese un color valido')
+        }
+    }
+
+    getModel(){
+        return this.model;
+    }
+
+    setModel(newModel){
+        if (typeof newModel === 'string' && newModel !== null) {
+            this.model = newModel;
+        } else {
+            throw new Error('Ingrese un tipo de modelo correcto')
+        }
+    }
+
+    getPlate(){
+        return this.licensePlate;
+    }
+
+    setPlate(newPlate){
+        if (typeof newPlate === 'string' 
+                && /^[A-Z]{1,3}-[A-Z]{1,3}-[0-9]{1,4}$/.test(newPlate) === true
+                && newPlate !== null) {
+            this.licensePlate = newPlate;
+        } else {
+            throw new Error('¡La placa tiene que cumplir con las especificaciónes de la localidad!');
+        }
+
+    }
 
 }
 

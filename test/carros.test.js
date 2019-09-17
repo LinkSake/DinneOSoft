@@ -1,233 +1,140 @@
 const describe = require('mocha').describe;
 const it = require('mocha').it;
-const mongoose = require('mongoose');
-const assert = require('chai').assert;
 const { expect } = require('chai');
 
 const CarModel = require('../models/carros.model').CarModel;
 
-mongoose.promise = Promise;
-mongoose.connect('mongodb://127.0.0.1:27014/frac');
-
 describe('Autos',function(){
-    //Funcionalidad de modificar Actividad
-    describe('Registrar Auto',function(){
         
-            describe('Dar de Alta Año',function(){
-                var date = new Date();
-                var year = (date.getFullYear() + 3); 
+        describe('Dar de Alta Año',function(){
 
-                it('No puede ser mayor del año actual +3',function(){
-                    
-                    expect().to.be.below(year);
-                });
-
-                it('No puede ser nulo',function(){
-                    
-                    expect().to.be.not.deep.equal(null);
-                });
-                
-                it('tiene que ser un numero',function(){
-                    
-                    expect().to.be.a("number");
-                });
-                
-                
-            });
-            describe('Dar de Alta color',function(){
-                it('tipo String',function(){
-                    
-                    expect().to.be.a("string");
-                });
-
-                it('No puede ser nulo',function(){
-                    
-                    expect().to.be.not.deep.equal(null);
-                });
-
-            });
-            describe('Dar de Alta Modelo',function(){
-                it('Tiene que ser de tipo String',function(){
-                    
-                    expect().to.be.a("string");
-                });
-
-                it('No puede ser nulo',function(){
-                    
-                    expect().to.be.not.deep.equal(null);   
-                });
-            });
-
-            describe('Dar de Alta Placa',function(){
-                it('Tiene que coincidir con el patron del REGEX',function(){
-
-                    expect().to.be.true;
-
-                }); 
-                
-                it('No puede ser nulo',function(){
-                    let newCarro = new CarModel({
-                        model: 'tsuru',
-                        color:'rojo',
-                        year: 2005,
-                        houseNumber: 34,
-                    });
-        
-                    expect(newCar.getLicensePlate).to.throw;
-                    
-                }); 
-                
-            });
-            
-            describe('Asignar casa',function(){
-                it('No puede ser nulo', function(){
-
-                    let newCarro = new CarModel({
-                        model: 'tsuru',
-                        color:'rojo',
-                        licensePlate:'ABC-AVD-4656',
-                        year: 2005,
-                    });
-     
-                    expect(newCarro.getCarHouse).to.throw;
-                   
-                });
-                it('tiene que ser un numero', function(){
-                    let newCarro = new CarModel({
-                        model: 'tsuru',
-                        color:'rojo',
-                        licensePlate:'ABC-AVD-4656',
-                        houseNumber: 34,
-                        year: 2005,
+            it('No puede ser mayor del año actual +3',function(){
+                    let newCar = new CarModel({
+                        model: 'Civic',
+                        color: 'Silver',
+                        licensePlate: 'AAA-BBB-0000',
+                        houseNumber: 01,
+                        year: 2017
                     });
                     
-                    expect(newCarro.getCarHouse()).to.be.a("number");
+                    var date = new Date();
+                    var year = (date.getFullYear() + 3); 
 
-                });
-            
-                  
+                    expect(newCar.getYear()).to.be.below(year);
+                    //newCar.setYear('2077');
+                    //expect(newCar.getYear.bind(null, null)).to.throw();
+
+            });
+
+            it('No puede ser nulo',function(){
+                    let newCar = new CarModel({
+                        model: 'Civic',
+                        color: 'Silver',
+                        licensePlate: 'AAA-BBB-0000',
+                        houseNumber: 01
+                    });
+                    
+                    expect(newCar.setYear.bind(null, null)).to.throw();
+            });
                 
-            });
-            
-          
-        
-    
-        });
-    
-    describe('Modificar Auto',function(){
-        //Debe de existit un registro 
-        describe('Modificar Año',function(){
-            var date = new Date();
-            var year = (date.getFullYear() + 3); ; 
-            it('no puede ser mayor del año actual +3', function(){
-                
-                expect().to.be.below(year);
-            });
+            it('Tiene que ser un numero positivo',function(){
+                    let newCar = new CarModel({
+                        model: 'Civic',
+                        color: 'Silver',
+                        licensePlate: 'AAA-BBB-0000',
+                        houseNumber: 01
+                    });
 
-            it('No puede ser nulo', function(){
-                
-                expect().to.be.not.deep.equal(null);
-            });
-
-            it('tiene que ser un numero', function(){
-            
-                expect().to.be.a("number");
-            });
-            
-            
-       });
-        describe('Modificar color',function(){
-            it('tipo String', function(){
-                
-                expect().to.be.a("string");
-            });
-
-            it('No puede ser nulo', function(){
-                
-                expect().to.be.not.deep.equal(null);
-            });
-       
-        });
-        describe('Modificar Modelo',function(){
-            it('Tiene que ser de tipo String', function(){
-                let newCarro = new CarModel({
-                    model: 'tsuru',
-                    color:'rojo',
-                    licensePlate:'ABC-AVD-4656',
-                    year: 2005,
-                    houseNumber: 34,
-                });
-    
-
-                expect().to.be.a("string");
-            });
-
-            it('No puede ser nulo', function(){
-                let newCarro = new CarModel({
-                    color:'rojo',
-                    licensePlate:'ABC-AVD-4656',
-                    year: 2005,
-                    houseNumber: 34,
-                });
- 
-
-                expect(newCarro.getModelo).to.be.not.deep.equal(null);
-            });
-            
+                    expect(newCar.setYear.bind(null,':(')).to.throw();
+                    expect(newCar.setYear.bind(null,undefined)).to.throw();
+                    expect(newCar.setYear.bind(null,[])).to.throw();
+                    expect(newCar.setYear.bind(null,-1)).to.throw();
+            });    
         });
 
-        describe('Modificar Placa',function(){
-           it('Tiene que coincidir con el REDEX', function(){
-                let newCarro = new CarModel({
-                    model: 'tsuru',
-                    color:'rojo',
-                    licensePlate:'ABC-AVD-4656',
-                    year: 2005,
-                    houseNumber: 34,
-                });
+        describe('Dar de Alta color',function(){
+            it('Debe de ser una cadena',function(){
+                    let newCar = new CarModel({
+                        model: 'Civic',
+                        year: 2017,
+                        licensePlate: 'AAA-BBB-0000',
+                        houseNumber: 01
+                    });
 
-               expect().to.be.true;
-                //TODO : Realizar prueba de placas redex 
+                    expect(newCar.setColor.bind(null,1)).to.throw();
+                    expect(newCar.setColor.bind(null,undefined)).to.throw();
+                    expect(newCar.setColor.bind(null,[])).to.throw();
+                    newCar.setColor('Silver');
+                    expect(newCar.getColor()).to.be.deep.equal('Silver');
+            });
+
+            it('No puede ser nulo',function(){
+                    let newCar = new CarModel({
+                        model: 'Civic',
+                        year: 2017,
+                        licensePlate: 'AAA-BBB-0000',
+                        houseNumber: 01
+                    });
+
+                    expect(newCar.setColor.bind(null,null)).to.throw();
+            });
         });
-           
-           
-       });
-       
-       describe.only('Modificar casa',function(){
 
+        describe('Dar de Alta Modelo',function(){
+            it('Tiene que ser de tipo String',function(){
 
-           it('Tiene que ser un número', function(){
-               let newCarro = new CarModel({
-                   model: 'tsuru',
-                   color:'rojo',
-                   licensePlate:'ABC-AVD-4656',
-                   houseNumber: 34,
-                   year: 2005,
-               });
-               
-                assert.throws(newCarro.modificarNumero.bind(null, "Hola"));
-                assert.throws(newCarro.modificarNumero.bind(null, null));
-                assert.throws(newCarro.modificarNumero.bind(null, undefined));
-                assert.throws(newCarro.modificarNumero.bind(null, []));
-                assert.throws(newCarro.modificarNumero.bind(null, [1]));
-                expect(newCarro.modificarNumero(1)).to.be.deep.equal(1);
-           });
+                    let newCar = new CarModel({
+                        color: 'Silver',
+                        year: 2017,
+                        licensePlate: 'AAA-BBB-0000',
+                        houseNumber: 01
+                    });
 
-           
-           
-       });      
+                    expect(newCar.setModel.bind(null,1)).to.throw();
+                    expect(newCar.setModel.bind(null,undefined)).to.throw();
+                    expect(newCar.setModel.bind(null,[])).to.throw();
+                    newCar.setModel('Civic');
+                    expect(newCar.getModel()).to.be.deep.equal('Civic');
 
-   });
+            });
 
+            it('No puede ser nulo',function(){
+                    let newCar = new CarModel({
+                        color: 'Silver',
+                        year: 2017,
+                        licensePlate: 'AAA-BBB-0000',
+                        houseNumber: 01
+                    });
 
-   describe.only('Eliminar Auto',function(){
-       it('Tiene que existir', function(){
-        let newCarro = new CarModel();
+                    expect(newCar.setModel.bind(null,null)).to.throw();
+            });
+        });
 
-        expect(newCarro.deleteCar()).to.throw('No se puede eliminar un carro que no existe');
-       });
+        describe('Dar de Alta Placa',function(){
+            it('Tiene que coincidir con el patron del REGEX',function(){
+                    let newCar = new CarModel({
+                        model: 'Civic',
+                        color: 'Silver',
+                        year: 2017,
+                        houseNumber: 01
+                    });
 
-    });
+                    expect(newCar.setPlate.bind(null, ':(')).to.throw();
+                    newCar.setPlate('AAA-BBB-0000');
+                    expect(newCar.getPlate()).to.be.deep.equal('AAA-BBB-0000');
 
+            }); 
+                
+            it('No puede ser nulo',function(){
+                    let newCar = new CarModel({
+                        model: 'Civic',
+                        color: 'Silver',
+                        year: 2017,
+                        houseNumber: 01
+                    });
 
+                    expect(newCar.setPlate.bind(null,null)).to.throw();
+                    
+            });     
+        });
 });
