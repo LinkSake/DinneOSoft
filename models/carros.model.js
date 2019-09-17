@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const carroSchema = new Schema({
-    model: { type: String, required: true },
-    color: { type: String, required: true },
-    licensePlate: { type: String, required: true },
-    houseNumber: {type: Number, required: true, default: 0},
-    year: {type: Number, require: true}
+    model: { type: String},
+    color: { type: String},
+    licensePlate: { type: String},
+    houseNumber: {type: Number},
+    year: {type: Number}
   });
 
 /**
@@ -15,90 +15,39 @@ const carroSchema = new Schema({
 class CarroClass {
     constructor() {
     }
-    setHouseNumber(newHouse){
-        if(this.debts = [] && typeof(newHouse) === 'number'){
-            if (this.houseNumber !== newHouse) {
-                this.houseNumber = newHouse;
-            }
+
+    modificarNumero(NewHouse){
+
+        if(typeof(NewHouse) === 'number' && NewHouse > 0 && NewHouse % 1 !== 0) {
+            this.houseNumber = NewHouse;
+            return this.Number
         } else {
-            throw new Error('No se puede cambiar de residencia si se tiene deudas pendientes');
+            throw new Error('Error en los valores ingresados');
+            
         }
+
     }
 
-    setFirstName(newFirstName){
-        if(typeof(newFirstName) === 'string'){
-            this.fistName = newFirstName;
+    getLicensePlate(){
+        if(typeof this.licensePlate === 'string' ){
+            return this.licensePlate;
         } else {
-            throw new Error('Ingresa un nombre válido');
+            throw new Error('No se puede guardar algo diferente a una cadena')
         }
     }
-
-    setLastName(newLastName){
-        if(typeof(newLastName) === 'string'){
-            this.fistName = newLastName;
+    getCarHouse(){
+        if(typeof this.houseNumber === 'number' ){
+            return this.houseNumber;
         } else {
-            throw new Error('Ingresa un nombre válido');
+            throw new Error('No se puede guardar algo diferente a un numero')
         }
+        
     }
     
-    setPhoneNumber(newNumber) {
-        if(typeof(newNumber) === 'number'){
-            this.cellphone = newNumber;
-        } else {
-            throw new Error('Ingresa un número de telefono valido');
-        } 
-    }
 
-
-    setHouseNumber(newNumber) {
-        if(typeof(newNumber) === 'number'){
-            this.houseNumber = newNumber;
-        } else {
-            throw new Error('Ingresa un número de casa valido');
-        }
-    }
-
-    saveResident() {
-        if(this.houseNumber !== 0 || this.fistName !== "" || this.lastName !== "" || this.cellphone !== 0 ) {
+    deleteCar(){
+        if(this.licensePlate !== undefined){
             return true;
-        } else {
-            throw new Error('¡Debes de tener todos los datos obligatorios!');
-        }
-    }
-
-    deleteResident() {
-        if(this.is_deleted === false) {
-            if(this.debts.length === 0 && this.cars.length === 0 && this.houseNumber === 0){
-                if (this.firstName !== "" || this.lastName !== "" || this.cellphone !== 0) {
-                    this.is_deleted = true;   
-                } else {
-                    throw new Error("¡No puedes eliminar un residente vacio!");
-                }
-            } else {
-                throw new Error("¡No puedes eliminar un residente con datos vinculados!");
-            }
-        } else {
-            throw new Error("¡No puedes eliminar un residente que ya ha sido eliminado!");
-        }
-    }
-
-    getDebts() {
-        return this.debts;
-    }
-
-    deleteDebt(debt){
-        if(this.debts !== []){
-            let index = this.debts.indexOf(debt);
-            this.debts.splice(index, 1);
-        } else {
-            throw new Error('No se puede eliminar una deuda que no existe')
-        }
-    }
-
-    deleteCar(car){
-        if(this.cars !== []){
-            let index = this.cars.indexOf(car);
-            this.cars.splice(index, 1);
         } else {
             throw new Error('No se puede eliminar un carro que no existe')
         }
@@ -123,6 +72,8 @@ class CarroClass {
 carroSchema.loadClass(CarroClass);
 
 let CarModel = mongoose.model('Car', carroSchema);
+
+
 
 module.exports = {
     CarModel
