@@ -33,6 +33,11 @@ describe('Autos',function(){
                
         });
 
+        it('No puede ser igual al anterior', function(){
+               
+        });
+
+
                
     });
 
